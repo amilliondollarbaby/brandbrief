@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand Team Brief</title>
+<meta name="description" content="Who we are, what we stand for, how we sound and how we work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F3EEE6;
+    --paper-2: #EAE3D8;
+    --ink: #16130F;
+    --muted: #756C60;
+    --rule: #D6CDBE;
+    --accent: #2F4A3A;
+    --gold: #A88A5A;
+    --serif: "Instrument Serif", "Times New Roman", serif;
+    --sans: "Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --pad: clamp(16px, 6vw, 96px);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-snap-type: y proximity; scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: clamp(15px, 1.05vw, 17px);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- slide frame ---------- */
+  .slide {
+    position: relative;
+    min-height: 100svh;
+    padding: calc(var(--pad) + 28px) var(--pad) calc(var(--pad) + 20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    scroll-snap-align: start;
+    border-bottom: 1px solid var(--rule);
+    overflow: hidden;
+  }
+  .slide.dark { background: var(--ink); color: var(--paper); border-color: #2a251f; }
+  .slide.green { background: var(--accent); color: var(--paper); border-color: #263d30; }
+  .slide.tint { background: var(--paper-2); }
+  .inner { width: 100%; max-width: 1200px; margin: 0 auto; }
+
+  .label {
+    position: absolute;
+    top: var(--pad); left: var(--pad); right: var(--pad);
+    display: flex; justify-content: space-between; gap: 16px;
+    font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .dark .label, .green .label { color: rgba(243,238,230,.55); }
+  .label b { font-weight: 500; color: inherit; }
+
+  /* ---------- type ---------- */
+  h1, h2, h3, .serif { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; }
+  h1 { font-size: clamp(56px, 11vw, 168px); line-height: .92; }
+  h2 { font-size: clamp(40px, 6.2vw, 96px); line-height: .98; margin-bottom: clamp(28px, 4vw, 56px); }
+  h3 { font-size: clamp(24px, 2.4vw, 34px); line-height: 1.1; margin-bottom: 8px; }
+  em { font-style: italic; }
+  .kicker {
+    font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 14px; display: block;
+  }
+  .dark .kicker, .green .kicker { color: rgba(243,238,230,.6); }
+  .lede { font-size: clamp(18px, 1.6vw, 22px); line-height: 1.45; max-width: 34ch; color: var(--muted); }
+  .dark .lede, .green .lede { color: rgba(243,238,230,.72); }
+  .small { font-size: 13px; color: var(--muted); }
+  .dark .small, .green .small { color: rgba(243,238,230,.6); }
+  .tbd { color: var(--gold); font-style: italic; font-family: var(--serif); }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: clamp(24px, 3vw, 40px) 0; }
+  .dark hr, .green hr { border-color: rgba(243,238,230,.18); }
+
+  /* ---------- grids ---------- */
+  .grid { display: grid; gap: clamp(20px, 3vw, 48px); }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  .split { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(28px, 5vw, 96px); align-items: start; }
+  .cell { border-top: 1px solid var(--ink); padding-top: 16px; }
+  .dark .cell, .green .cell { border-color: rgba(243,238,230,.5); }
+  .num { font-family: var(--serif); font-style: italic; color: var(--gold); font-size: 20px; display: block; margin-bottom: 6px; }
+
+  /* ---------- cover ---------- */
+  .cover h1 em { color: var(--gold); }
+  .cover .meta { margin-top: clamp(32px, 5vw, 72px); display: flex; gap: 40px; flex-wrap: wrap; }
+
+  /* ---------- positioning ---------- */
+  .statement { font-family: var(--serif); font-size: clamp(26px, 2.7vw, 42px); line-height: 1.18; max-width: 22ch; }
+  .statement em { color: var(--gold); }
+  .map { position: relative; aspect-ratio: 1 / 1; max-width: 520px; width: 100%; justify-self: end; border-left: 1px solid currentColor; border-bottom: 1px solid currentColor; }
+  .map::before, .map::after { content: ""; position: absolute; background: rgba(243,238,230,.14); }
+  .map::before { left: 50%; top: 0; bottom: 0; width: 1px; }
+  .map::after { top: 50%; left: 0; right: 0; height: 1px; }
+  .map .ax { position: absolute; font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: rgba(243,238,230,.55); }
+  .map .ax.x0 { bottom: -26px; left: 0; } .map .ax.x1 { bottom: -26px; right: 0; }
+  .map .ax.y0 { left: 12px; bottom: 8px; } .map .ax.y1 { left: 12px; top: 8px; }
+  .dot { position: absolute; transform: translate(-50%, 50%); display: flex; align-items: center; gap: 10px; font-size: 13px; white-space: nowrap; color: rgba(243,238,230,.75); }
+  .dot::before { content: ""; width: 10px; height: 10px; border-radius: 50%; border: 1px solid currentColor; flex: none; }
+  .dot.us { color: var(--gold); font-family: var(--serif); font-size: 26px; transform: translate(-85%, 50%); }
+  .dot.us::before { width: 16px; height: 16px; background: var(--gold); border-color: var(--gold); }
+  .diff .cell h3 { font-size: clamp(22px, 2vw, 30px); }
+  .diff .vs { font-size: 12px; color: var(--muted); margin-top: 10px; display: block; }
+
+  /* ---------- manifesto ---------- */
+  .wants { list-style: none; columns: 2; column-gap: clamp(28px, 5vw, 96px); }
+  .wants li {
+    font-family: var(--serif); font-size: clamp(24px, 3vw, 44px); line-height: 1.15;
+    padding: 6px 0; break-inside: avoid;
+  }
+  .wants li:last-child { font-style: italic; color: var(--gold); }
+  .closer { font-family: var(--serif); font-size: clamp(32px, 4.5vw, 72px); margin-top: clamp(28px, 4vw, 56px); }
+
+  /* ---------- names ---------- */
+  .names { grid-template-columns: repeat(4, 1fr); gap: clamp(12px, 1.4vw, 20px); }
+  .name {
+    background: var(--c1); color: var(--c4);
+    padding: clamp(20px, 2vw, 28px); display: flex; flex-direction: column; min-height: 400px;
+  }
+  .name .palette-name { font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; opacity: .7; }
+  .name .serif { font-size: clamp(40px, 3.6vw, 56px); line-height: 1; display: block; margin: 18px 0 4px; }
+  .name .handle { font-family: var(--serif); font-style: italic; font-size: 20px; color: var(--c3); display: block; }
+  .name .subs { list-style: none; margin: 14px 0; padding: 12px 0; border-top: 1px solid color-mix(in srgb, var(--c4) 25%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--c4) 25%, transparent); font-size: 13px; display: grid; gap: 3px; }
+  .name p { font-size: 13.5px; line-height: 1.4; opacity: .8; }
+  .swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: auto; padding-top: 18px; }
+  .swatches span { display: block; }
+  .swatches i { display: block; height: 44px; border: 1px solid color-mix(in srgb, var(--c4) 30%, transparent); }
+  .swatches b { display: block; font-weight: 400; font-size: 9.5px; letter-spacing: .06em; margin-top: 5px; opacity: .75; }
+
+  /* ---------- pairs ---------- */
+  .pairs { width: 100%; border-collapse: collapse; }
+  .pairs th {
+    text-align: left; font-weight: 500; font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    padding: 0 16px 12px 0; border-bottom: 1px solid currentColor; width: 50%;
+  }
+  .pairs td { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--rule); vertical-align: top; font-size: clamp(15px, 1.25vw, 19px); }
+  .dark .pairs td, .green .pairs td { border-color: rgba(243,238,230,.16); }
+  .pairs td:first-child { font-family: var(--serif); font-size: clamp(20px, 1.8vw, 28px); line-height: 1.2; }
+  .pairs .no { color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(117,108,96,.5); }
+  .dark .pairs .no { color: rgba(243,238,230,.5); }
+
+  /* ---------- words ---------- */
+  .words { display: flex; flex-wrap: wrap; gap: 10px 28px; font-family: var(--serif); font-size: clamp(30px, 3.6vw, 54px); line-height: 1.1; }
+  .words.no span { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+
+  /* ---------- timeline ---------- */
+  .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 8px; }
+  .step { padding: 18px 20px 0 0; border-top: 1px solid currentColor; position: relative; }
+  .step::before { content: ""; position: absolute; top: -5px; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--gold); }
+  .step .serif { font-size: clamp(26px, 2.4vw, 36px); display: block; margin-bottom: 6px; }
+  .step p { font-size: 14.5px; }
+
+  /* ---------- architecture ---------- */
+  .arch { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(12px, 2vw, 24px); }
+  .front { border: 1px solid rgba(243,238,230,.4); padding: clamp(18px, 2vw, 28px); text-align: center; }
+  .front .serif { font-size: clamp(26px, 2.6vw, 40px); }
+  .wires { display: grid; grid-template-columns: repeat(3, 1fr); height: 48px; }
+  .wires span { border-left: 1px solid rgba(243,238,230,.4); margin-left: 50%; }
+  .engine { background: var(--paper); color: var(--ink); padding: clamp(20px, 2.4vw, 32px); text-align: center; }
+  .engine .serif { font-size: clamp(30px, 3.4vw, 52px); }
+  .engine .small { color: var(--muted); letter-spacing: .14em; text-transform: uppercase; font-size: 11px; margin-top: 6px; }
+
+  /* ---------- brand columns ---------- */
+  .brand-col { border-top: 1px solid var(--ink); padding-top: 18px; }
+  .brand-col .line { font-family: var(--serif); font-size: clamp(26px, 2.5vw, 38px); line-height: 1.1; margin: 10px 0 22px; }
+  .brand-col dl { display: grid; gap: 12px; }
+  .brand-col dt { font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  .brand-col dd { font-size: 14.5px; }
+
+  .owners dl { gap: 0; }
+  .owners dt { font-size: clamp(16px, 1.3vw, 19px); letter-spacing: 0; text-transform: none; color: inherit; padding-top: 14px; }
+  .owners dd { font-family: var(--serif); font-style: italic; color: var(--gold); padding-bottom: 14px; border-bottom: 1px solid var(--rule); }
+
+  /* ---------- pricing ---------- */
+  .tier { border: 1px solid var(--rule); padding: clamp(22px, 2.4vw, 36px); display: flex; flex-direction: column; gap: 12px; background: var(--paper); }
+  .tier.feature { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .tier .serif { font-size: clamp(30px, 3vw, 46px); line-height: 1; }
+  .tier .for { font-size: 14px; color: var(--muted); }
+  .tier.feature .for { color: rgba(243,238,230,.6); }
+  .tier ul { list-style: none; font-size: 14.5px; display: grid; gap: 6px; }
+  .tier li::before { content: "— "; color: var(--gold); }
+  .tier .price { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--rule); font-family: var(--serif); font-size: 30px; }
+  .tier.feature .price { border-color: rgba(243,238,230,.2); }
+  .terms { display: flex; flex-wrap: wrap; gap: 8px 32px; margin-top: 28px; font-size: 13.5px; color: var(--muted); }
+  .terms span::before { content: "· "; color: var(--gold); }
+
+  /* ---------- lists ---------- */
+  .plain { list-style: none; display: grid; gap: 10px; }
+  .plain li { padding-left: 20px; position: relative; }
+  .plain li::before { content: ""; position: absolute; left: 0; top: .7em; width: 10px; height: 1px; background: var(--gold); }
+
+  .checks { list-style: none; columns: 2; column-gap: clamp(28px, 5vw, 80px); }
+  .checks li { break-inside: avoid; padding: 13px 0 13px 34px; border-bottom: 1px solid rgba(243,238,230,.16); position: relative; font-size: clamp(15px, 1.25vw, 18px); }
+  .checks li::before { content: ""; position: absolute; left: 0; top: 16px; width: 16px; height: 16px; border: 1px solid var(--gold); }
+
+  /* ---------- money ---------- */
+  .ledger { width: 100%; border-collapse: collapse; }
+  .ledger td { padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: clamp(15px, 1.2vw, 18px); }
+  .ledger td:last-child { text-align: right; }
+  .ledger tr.total td { border-bottom: 1px solid var(--ink); font-weight: 500; }
+  .formula { font-family: var(--serif); font-size: clamp(26px, 2.6vw, 40px); line-height: 1.2; }
+  .formula .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; font-size: .7em; margin-left: 10px; }
+  .formula .frac span:first-child { border-bottom: 1px solid currentColor; padding: 0 6px 2px; }
+  .formula .frac span:last-child { padding: 2px 6px 0; }
+
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--ink); }
+  .metrics div { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--rule); font-size: 14.5px; }
+  .metrics .serif { display: block; font-size: 28px; color: var(--gold); line-height: 1; margin-bottom: 4px; font-style: italic; }
+
+  /* ---------- chrome ---------- */
+  .progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--gold); width: 0; z-index: 10; transition: width .3s ease; }
+  .counter {
+    position: fixed; right: var(--pad); bottom: 18px; z-index: 10;
+    font-size: 11px; letter-spacing: .18em; color: var(--muted);
+    mix-blend-mode: difference; color: #bdb4a6;
+  }
+  .hint { position: absolute; bottom: var(--pad); left: var(--pad); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: rgba(243,238,230,.5); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 960px) {
+    .names { grid-template-columns: repeat(2, 1fr); }
+    .g4, .metrics { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    html { scroll-snap-type: none; }
+    .slide { padding-top: var(--pad); justify-content: flex-start; }
+    .label { position: static; flex-direction: column; gap: 4px; margin-bottom: 40px; }
+    .g2, .g3, .split, .arch, .timeline { grid-template-columns: 1fr; }
+    .names { grid-template-columns: 1fr; }
+    .name { min-height: 0; }
+    .wants, .checks { columns: 1; }
+    .wires { display: none; }
+    .arch { margin-bottom: 16px; }
+    .timeline { gap: 24px; }
+    .hint { display: none; }
+  }
+  @media print {
+    .slide { break-after: page; min-height: 100vh; }
+    .progress, .counter { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="counter" id="counter">01</div>
+
+<!-- 01 cover -->
+<section class="slide dark cover">
+  <div class="label"><b>[Brand]</b><span>Team Brief · Oct 2026</span></div>
+  <div class="inner">
+    <span class="kicker">Executive Support Services</span>
+    <h1>We want<br>what you want.<br><em>Especially the dollars.</em></h1>
+    <div class="meta small">
+      <span>Who we are</span><span>What we stand for</span><span>How we sound</span><span>How we work</span>
+    </div>
+  </div>
+  <div class="hint">Scroll or use ← →</div>
+</section>
+
+<!-- 02 positioning I -->
+<section class="slide dark">
+  <div class="label"><b>02 — Positioning</b><span>I / II · Where we stand</span></div>
+  <div class="inner split" style="align-items:center">
+    <div>
+      <span class="kicker">Not a VA. An Executive Partner.</span>
+      <p class="statement">For established founders ready to grow, we run what you hand over, <em>inside lines we draw together.</em></p>
+      <div class="grid g3 bounds" style="margin-top:32px">
+        <div class="cell"><span class="kicker">Yours</span><p class="small">The vision, the decisions, the final call.</p></div>
+        <div class="cell"><span class="kicker">Ours</span><p class="small">The agreed scope, done well, measured on milestones.</p></div>
+        <div class="cell"><span class="kicker">Outside the lines</span><p class="small">Quoted first. Never assumed.</p></div>
+      </div>
+    </div>
+    <div class="map" aria-label="Positioning map: task-taker to partner, cheapest to best">
+      <span class="ax y1">Partner</span><span class="ax y0">Task-taker</span>
+      <span class="ax x0">Cheapest</span><span class="ax x1">Best</span>
+      <span class="dot" style="left:16%;bottom:14%">Offshore marketplaces</span>
+      <span class="dot" style="left:48%;bottom:30%">Hourly VA firms</span>
+      <span class="dot" style="left:64%;bottom:58%">Agencies</span>
+      <span class="dot us" style="left:86%;bottom:86%">Us</span>
+    </div>
+  </div>
+</section>
+
+<!-- 02 positioning II -->
+<section class="slide">
+  <div class="label"><b>02 — Positioning</b><span>II / II · What sets us apart</span></div>
+  <div class="inner">
+    <h2>What makes us <em>different.</em></h2>
+    <div class="grid g3 diff">
+      <div class="cell"><span class="num">i.</span><h3>Partners who think</h3><p class="small">EPs plan ahead and run the agreed scope.</p><span class="vs">Others: take tasks, wait for instructions.</span></div>
+      <div class="cell"><span class="num">ii.</span><h3>Milestones, not hours</h3><p class="small">30-60-90 goals in writing. A live results view.</p><span class="vs">Others: bill hours, report time spent.</span></div>
+      <div class="cell"><span class="num">iii.</span><h3>Sourced for you</h3><p class="small">Each EP is found for your needs, from people we know and trust.</p><span class="vs">Others: whoever's free on the bench.</span></div>
+      <div class="cell"><span class="num">iv.</span><h3>Fluent in your niche</h3><p class="small">Playbooks from years in social, real estate and affiliates.</p><span class="vs">Others: generalists learning on your time.</span></div>
+      <div class="cell"><span class="num">v.</span><h3>Built forward</h3><p class="small">AI and automations take the busywork. The EP keeps the judgment.</p><span class="vs">Others: the same manual playbook as 2015.</span></div>
+      <div class="cell"><span class="num">vi.</span><h3>Clear lines</h3><p class="small">Scope, won't-do list and limits in writing. Extra asks are quoted.</p><span class="vs">Others: vague scope, endless asks.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 manifesto -->
+<section class="slide">
+  <div class="label"><b>03 — The manifesto</b><span>Client-facing</span></div>
+  <div class="inner">
+    <ul class="wants">
+      <li>We want time back.</li>
+      <li>We want problems solved.</li>
+      <li>We want to keep evolving.</li>
+      <li>We want to lead.</li>
+      <li>We want clarity.</li>
+      <li>We want bigger growth.</li>
+      <li>We want unshakable confidence.</li>
+      <li>We want peace of mind.</li>
+      <li>We want to live out loud.</li>
+      <li>And of course, more dollars.</li>
+    </ul>
+    <p class="closer">When you grow, we grow.</p>
+  </div>
+</section>
+
+<!-- 03 who we are -->
+<section class="slide tint">
+  <div class="label"><b>04 — Who we are</b><span>Internal</span></div>
+  <div class="inner split">
+    <div>
+      <h2>Built by <em>women.</em></h2>
+      <p class="lede">Women-led, not women-only. Anyone who meets our standard belongs here.</p>
+    </div>
+    <div class="grid">
+      <div class="cell">
+        <span class="kicker">What we are</span>
+        <h3>Executive Partners for founders</h3>
+        <p>In social media, affiliate marketing and real estate. Smart women who love money, and love making our clients' money work harder.</p>
+      </div>
+      <div class="cell">
+        <span class="kicker">North star</span>
+        <h3>The <em>Rhode</em> of VA hiring</h3>
+        <p>Small, sharp and wanted. The name people mention when they want the best, not the cheapest.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 names I -->
+<section class="slide">
+  <div class="label"><b>05 — Name shortlist</b><span>I / III · The color of money</span></div>
+  <div class="inner">
+    <h2>A story in <em>one breath.</em></h2>
+    <div class="grid names">
+      <div class="name" style="--c1:#1E3B2F;--c3:#C9A961;--c4:#F4EFE3">
+        <span class="palette-name">Harvest</span>
+        <span class="serif">Yield</span><span class="handle">withYield</span>
+        <ul class="subs"><li>yieldSMM</li><li>yieldRE</li><li>yieldAffiliates</li></ul>
+        <p>Real returns, and making way for others to lead.</p>
+        <div class="swatches"><span><i style="background:#1E3B2F"></i><b>#1E3B2F</b></span><span><i style="background:#8FA58A"></i><b>#8FA58A</b></span><span><i style="background:#C9A961"></i><b>#C9A961</b></span><span><i style="background:#F4EFE3"></i><b>#F4EFE3</b></span></div>
+      </div>
+      <div class="name" style="--c1:#2E5E4E;--c3:#C7D9CC;--c4:#F5F3EE">
+        <span class="palette-name">Fresh Press</span>
+        <span class="serif">Mint</span><span class="handle">withMint</span>
+        <ul class="subs"><li>mintSMM</li><li>mintRE</li><li>mintAffiliates</li></ul>
+        <p>Where money is made. Always brand new.</p>
+        <div class="swatches"><span><i style="background:#2E5E4E"></i><b>#2E5E4E</b></span><span><i style="background:#A8CBB7"></i><b>#A8CBB7</b></span><span><i style="background:#C7C9C8"></i><b>#C7C9C8</b></span><span><i style="background:#F5F3EE"></i><b>#F5F3EE</b></span></div>
+      </div>
+      <div class="name" style="--c1:#141414;--c3:#B08D57;--c4:#EFE8DA">
+        <span class="palette-name">Market Board</span>
+        <span class="serif">Ticker</span><span class="handle">withTicker</span>
+        <ul class="subs"><li>tickerSMM</li><li>tickerRE</li><li>tickerAffiliates</li></ul>
+        <p>What's rising, and a heart. Money sense with heart.</p>
+        <div class="swatches"><span><i style="background:#141414"></i><b>#141414</b></span><span><i style="background:#3F7D58"></i><b>#3F7D58</b></span><span><i style="background:#B08D57"></i><b>#B08D57</b></span><span><i style="background:#EFE8DA"></i><b>#EFE8DA</b></span></div>
+      </div>
+      <div class="name" style="--c1:#24382E;--c3:#C9A24E;--c4:#EEEAE2">
+        <span class="palette-name">Roman Gold</span>
+        <span class="serif">Moneta</span><span class="handle">Moneta</span>
+        <ul class="subs"><li>monetaSMM</li><li>monetaRE</li><li>monetaAffiliates</li></ul>
+        <p>The goddess behind "money" and "mint."</p>
+        <div class="swatches"><span><i style="background:#24382E"></i><b>#24382E</b></span><span><i style="background:#8C5A3C"></i><b>#8C5A3C</b></span><span><i style="background:#C9A24E"></i><b>#C9A24E</b></span><span><i style="background:#EEEAE2"></i><b>#EEEAE2</b></span></div>
+      </div>
+    </div>
+    <p class="small" style="margin-top:20px">Main brand: with[Name], Executive Support Services · Sub-brands: [name]SMM · [name]RE · [name]Affiliates</p>
+  </div>
+</section>
+
+<!-- 04 names II -->
+<section class="slide tint">
+  <div class="label"><b>05 — Name shortlist</b><span>II / III · Kept close</span></div>
+  <div class="inner">
+    <h2>Jewelry box <em>elegance.</em></h2>
+    <div class="grid names">
+      <div class="name" style="--c1:#1F4D3A;--c3:#D4AE98;--c4:#F3EDE6">
+        <span class="palette-name">Heirloom</span>
+        <span class="serif">Locket</span><span class="handle">Locket</span>
+        <ul class="subs"><li>locketSMM</li><li>locketRE</li><li>locketAffiliates</li></ul>
+        <p>Keeps what matters close. Peace of mind.</p>
+        <div class="swatches"><span><i style="background:#1F4D3A"></i><b>#1F4D3A</b></span><span><i style="background:#C9A08B"></i><b>#C9A08B</b></span><span><i style="background:#B89355"></i><b>#B89355</b></span><span><i style="background:#F3EDE6"></i><b>#F3EDE6</b></span></div>
+      </div>
+      <div class="name" style="--c1:#183A2C;--c3:#C5A15A;--c4:#F2EEE6">
+        <span class="palette-name">Fine Hardware</span>
+        <span class="serif">Clasp</span><span class="handle">claspFinder</span>
+        <ul class="subs"><li>claspSMM</li><li>claspRE</li><li>claspAffiliates</li></ul>
+        <p>The small piece that holds it all together.</p>
+        <div class="swatches"><span><i style="background:#183A2C"></i><b>#183A2C</b></span><span><i style="background:#4A4D4F"></i><b>#4A4D4F</b></span><span><i style="background:#C5A15A"></i><b>#C5A15A</b></span><span><i style="background:#F2EEE6"></i><b>#F2EEE6</b></span></div>
+      </div>
+      <div class="name" style="--c1:#145A43;--c3:#D1B072;--c4:#EDE8E0">
+        <span class="palette-name">Emerald Pin</span>
+        <span class="serif">Brooch</span><span class="handle">BroochWorks</span>
+        <ul class="subs"><li>broochSMM</li><li>broochRE</li><li>broochAffiliates</li></ul>
+        <p>Albright's diplomatic brooches. Women who lead.</p>
+        <div class="swatches"><span><i style="background:#1A1A1A"></i><b>#1A1A1A</b></span><span><i style="background:#145A43"></i><b>#145A43</b></span><span><i style="background:#B9975B"></i><b>#B9975B</b></span><span><i style="background:#EDE8E0"></i><b>#EDE8E0</b></span></div>
+      </div>
+      <div class="name" style="--c1:#1B1F1D;--c3:#BFA06A;--c4:#F1EBDD">
+        <span class="palette-name">Ink &amp; Gilt</span>
+        <span class="serif">Plume</span><span class="handle">withPlume</span>
+        <ul class="subs"><li>plumeSMM</li><li>plumeRE</li><li>plumeAffiliates</li></ul>
+        <p>The quill that signs the deal.</p>
+        <div class="swatches"><span><i style="background:#1B1F1D"></i><b>#1B1F1D</b></span><span><i style="background:#6F8579"></i><b>#6F8579</b></span><span><i style="background:#BFA06A"></i><b>#BFA06A</b></span><span><i style="background:#F1EBDD"></i><b>#F1EBDD</b></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 names III -->
+<section class="slide">
+  <div class="label"><b>05 — Name shortlist</b><span>III / III · Made with care</span></div>
+  <div class="inner">
+    <h2>Tailored, <em>light, in place.</em></h2>
+    <div class="grid names">
+      <div class="name" style="--c1:#141414;--c3:#C4A77B;--c4:#EEE7DA">
+        <span class="palette-name">Tailored</span>
+        <span class="serif">Cinch</span><span class="handle">Cinch</span>
+        <ul class="subs"><li>cinchSMM</li><li>cinchRE</li><li>cinchAffiliates</li></ul>
+        <p>Held tight. And effortless.</p>
+        <div class="swatches"><span><i style="background:#141414"></i><b>#141414</b></span><span><i style="background:#4B6B4F"></i><b>#4B6B4F</b></span><span><i style="background:#B89A6E"></i><b>#B89A6E</b></span><span><i style="background:#EEE7DA"></i><b>#EEE7DA</b></span></div>
+      </div>
+      <div class="name" style="--c1:#E8DCC6;--c3:#4E6E5C;--c4:#233D31">
+        <span class="palette-name">Ballroom</span>
+        <span class="serif">Tulle</span><span class="handle">withTulle</span>
+        <ul class="subs"><li>tulleSMM</li><li>tulleRE</li><li>tulleAffiliates</li></ul>
+        <p>Light, but it holds its shape.</p>
+        <div class="swatches"><span><i style="background:#E8DCC6"></i><b>#E8DCC6</b></span><span><i style="background:#D7E3D6"></i><b>#D7E3D6</b></span><span><i style="background:#6E8B78"></i><b>#6E8B78</b></span><span><i style="background:#233D31"></i><b>#233D31</b></span></div>
+      </div>
+      <div class="name" style="--c1:#2C4A3E;--c3:#C4A574;--c4:#F2EDE4">
+        <span class="palette-name">In Its Place</span>
+        <span class="serif">Mise</span><span class="handle">Mise</span>
+        <ul class="subs"><li>miseSMM</li><li>miseRE</li><li>miseAffiliates</li></ul>
+        <p>Said "meez." Everything in its place.</p>
+        <div class="swatches"><span><i style="background:#2C4A3E"></i><b>#2C4A3E</b></span><span><i style="background:#7A8566"></i><b>#7A8566</b></span><span><i style="background:#A88A5A"></i><b>#A88A5A</b></span><span><i style="background:#F2EDE4"></i><b>#F2EDE4</b></span></div>
+      </div>
+      <div class="name" style="--c1:#1D3F33;--c3:#D0AF6A;--c4:#F6F4EF">
+        <span class="palette-name">Summit</span>
+        <span class="serif">Pique</span><span class="handle">withPique</span>
+        <ul class="subs"><li>piqueSMM</li><li>piqueRE</li><li>piqueAffiliates</li></ul>
+        <p>Spark interest. Reach the peak.</p>
+        <div class="swatches"><span><i style="background:#1D3F33"></i><b>#1D3F33</b></span><span><i style="background:#B8B2A6"></i><b>#B8B2A6</b></span><span><i style="background:#D0AF6A"></i><b>#D0AF6A</b></span><span><i style="background:#F6F4EF"></i><b>#F6F4EF</b></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 beliefs -->
+<section class="slide dark">
+  <div class="label"><b>06 — What we believe</b><span>Internal</span></div>
+  <div class="inner">
+    <h2>We grow <em>forward.</em></h2>
+    <div class="grid g4">
+      <div class="cell"><span class="num">i.</span><h3>Partners, not order-takers</h3><p class="small">Context and expectations set together. Never guessed.</p></div>
+      <div class="cell"><span class="num">ii.</span><h3>People who keep growing</h3><p class="small">Skills, AI fluency, and who they are as people.</p></div>
+      <div class="cell"><span class="num">iii.</span><h3>Forward, always</h3><p class="small">The world moves fast. Neither of us gets left behind.</p></div>
+      <div class="cell"><span class="num">iv.</span><h3>Fair exchange</h3><p class="small">Open on price and scope. When clients grow, we grow.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 vibe -->
+<section class="slide">
+  <div class="label"><b>07 — Our vibe</b><span>How we look, sound, move</span></div>
+  <div class="inner">
+    <div class="grid g3">
+      <div class="cell"><span class="kicker">Confidence</span><h3>Madonna</h3><p class="small">Owns the room. Never apologizes for wanting more.</p></div>
+      <div class="cell"><span class="kicker">Smart marketing</span><h3>Rhode</h3><p class="small">Clean, minimal, wanted. Less noise, more pull.</p></div>
+      <div class="cell"><span class="kicker">Grounding</span><h3>Apple</h3><p class="small">Simple, calm. Lets the work speak.</p></div>
+    </div>
+    <hr>
+    <div class="grid g2">
+      <div><span class="kicker">Call us</span><div class="words"><span>Forward.</span><span>Effective.</span><span><em>Empowering.</em></span></div></div>
+      <div><span class="kicker">Never</span><div class="words no"><span>Overpromising.</span><span>Ineffective.</span></div></div>
+    </div>
+    <hr>
+    <div class="grid g4 small">
+      <p>Clean and confident first. Wit second. Results lead.</p>
+      <p>Client pages stay polished. "Girls just wanna have funds" lives in culture.</p>
+      <p>Short words. Short lines. No filler.</p>
+      <p>We say what we'll do. Then do it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 07 who we work with -->
+<section class="slide tint">
+  <div class="label"><b>08 — Who we work with</b><span>Values, not just budget</span></div>
+  <div class="inner split">
+    <h2>We pick clients like we pick <em>our team.</em></h2>
+    <table class="pairs">
+      <tr><th>Yes, let's talk</th><th>Not a fit</th></tr>
+      <tr><td>Sees it as an investment</td><td class="no">Lowballers</td></tr>
+      <tr><td>Open to evolving</td><td class="no">Wants growth, won't adapt</td></tr>
+      <tr><td>Puts it in writing</td><td class="no">Won't sign a contract</td></tr>
+      <tr><td>Realistic about scope</td><td class="no">Everything for anything</td></tr>
+      <tr><td>Clear on goals</td><td class="no">Results without expectations</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 08 proposition -->
+<section class="slide dark">
+  <div class="label"><b>09 — Our proposition</b><span>Women first, everyone welcome</span></div>
+  <div class="inner split">
+    <div>
+      <h2>Not just an <em>assistant.</em></h2>
+      <p class="lede">A strong, well-equipped Executive Partner, with a 90-day plan, sourced for your business.</p>
+    </div>
+    <table class="pairs">
+      <tr><th>What went wrong before</th><th>What we do</th></tr>
+      <tr><td class="no">Overpromised</td><td>Expectations set together, day one</td></tr>
+      <tr><td class="no">Not proactive</td><td>EPs who plan ahead</td></tr>
+      <tr><td class="no">Good, but didn't grow</td><td>EPs who grow with the business</td></tr>
+      <tr><td class="no">No reason to renew</td><td>Value that grows every 90 days</td></tr>
+      <tr><td class="no">Just took tasks</td><td>Partners who think</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 09 the 90-day promise -->
+<section class="slide">
+  <div class="label"><b>10 — The promise</b><span>Every client gets</span></div>
+  <div class="inner">
+    <h2>Milestones, <em>not moods.</em></h2>
+    <div class="timeline">
+      <div class="step"><span class="serif">Launch</span><p>Needs, scope, won't-do list and milestones, in writing.</p></div>
+      <div class="step"><span class="serif">Day 30</span><p>First milestones checked together.</p></div>
+      <div class="step"><span class="serif">Day 60</span><p>Check in, realign if needed.</p></div>
+      <div class="step"><span class="serif">Day 90</span><p>The benchmark. Reviewed together.</p></div>
+    </div>
+    <hr>
+    <span class="kicker">Not working at day 90? Missed on us, client chooses:</span>
+    <div class="grid g3">
+      <div><h3>Realign</h3><p class="small">Goals and scope reset. Free.</p></div>
+      <div><h3>Replace</h3><p class="small">A hand-picked fit from our pool. Free.</p></div>
+      <div><h3>Priority Match</h3><p class="small">Only if our pool is empty: 15+ interviews, best fit in <span class="tbd">X</span> days. Free.</p></div>
+    </div>
+    <p class="small" style="margin-top:24px">A full new search is paid. Clients only pay for days with an EP in their seat.</p>
+  </div>
+</section>
+
+<!-- 10 architecture -->
+<section class="slide green">
+  <div class="label"><b>11 — Three brands, one engine</b><span>3 front brands · 1 back office</span></div>
+  <div class="inner">
+    <h2>Only the <em>storefront</em> changes.</h2>
+    <div class="arch">
+      <div class="front"><span class="kicker">SMM</span><span class="serif">[Brand] Social</span></div>
+      <div class="front"><span class="kicker">Affiliates</span><span class="serif">[Brand] Affiliates</span></div>
+      <div class="front"><span class="kicker">RE</span><span class="serif">[Brand] Realty</span></div>
+    </div>
+    <div class="wires"><span></span><span></span><span></span></div>
+    <div class="engine">
+      <span class="serif">One way of working. One standard.</span>
+      <p class="small">EPs · playbooks · QA · ops</p>
+    </div>
+    <p class="lede" style="margin-top:32px;max-width:52ch">Test all three cheaply. See which one clients love. Go all in.</p>
+  </div>
+</section>
+
+<!-- 11 brand voices -->
+<section class="slide">
+  <div class="label"><b>12 — What each brand says</b><span>Same EPs, their language</span></div>
+  <div class="inner grid g3">
+    <div class="brand-col">
+      <span class="kicker">[Brand] Social</span>
+      <p class="line">You create.<br><em>We run the machine.</em></p>
+      <dl>
+        <dt>For</dt><dd>Founders, creators, brand leads</dd>
+        <dt>We take on</dt><dd>Calendar, editors, approvals, brand-deal inbox</dd>
+        <dt>We don't</dt><dd>Make the content</dd>
+        <dt>Tone</dt><dd>Creative, trend-aware</dd>
+      </dl>
+    </div>
+    <div class="brand-col">
+      <span class="kicker">[Brand] Affiliates</span>
+      <p class="line">You find the angles.<br><em>We run the operation.</em></p>
+      <dl>
+        <dt>For</dt><dd>Affiliate operators, site owners</dd>
+        <dt>We take on</dt><dd>Partners, commissions, content pipeline, tools</dd>
+        <dt>We don't</dt><dd>Build links or write in bulk</dd>
+        <dt>Tone</dt><dd>Sharp, numbers-first</dd>
+      </dl>
+    </div>
+    <div class="brand-col">
+      <span class="kicker">[Brand] Realty</span>
+      <p class="line">You sell.<br><em>We run everything around the deal.</em></p>
+      <dl>
+        <dt>For</dt><dd>Top agents and team leads</dd>
+        <dt>We take on</dt><dd>Transactions, listings, CRM, vendors</dd>
+        <dt>We don't</dt><dd>Cold call or prospect</dd>
+        <dt>Tone</dt><dd>Polished, local, reliable</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- 12 the EP way -->
+<section class="slide tint">
+  <div class="label"><b>13 — The EP way</b><span>Keep what works, add what's ours</span></div>
+  <div class="inner split">
+    <div>
+      <h2>The <em>EP</em> way.</h2>
+      <ul class="plain">
+        <li><b>Get to know them.</b> Map their week, source the EP.</li>
+        <li><b>First 14 days.</b> Take over workflows, land a quick win.</li>
+        <li><b>Every week.</b> Plan together, run it, show results.</li>
+        <li><b>Every quarter.</b> What's off their plate, what's next.</li>
+      </ul>
+    </div>
+    <table class="pairs">
+      <tr><th>We keep</th><th>Our edge</th></tr>
+      <tr><td>SOPs</td><td>Playbooks from years in each niche</td></tr>
+      <tr><td>One contact</td><td>An EP backed by the founders</td></tr>
+      <tr><td>A second check</td><td>AI handles busywork, EP handles judgment</td></tr>
+      <tr><td>Weekly updates</td><td>A live view of results, not hours</td></tr>
+      <tr><td>A trial</td><td>A 14-day kickoff, a win in week one</td></tr>
+      <tr><td>Hourly billing</td><td>One monthly price, clear scope</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 13 pricing -->
+<section class="slide">
+  <div class="label"><b>14 — Pricing</b><span>Public, because trust starts there</span></div>
+  <div class="inner">
+    <h2>One price. <em>No surprises.</em></h2>
+    <div class="grid g3">
+      <div class="tier">
+        <span class="serif">Partner</span>
+        <p class="for">Solo founders starting to hand off</p>
+        <ul><li>Part-time EP</li><li>Core workflows</li><li>Weekly results</li></ul>
+        <p class="price"><span class="tbd">$X</span> <span class="small">/ month</span></p>
+      </div>
+      <div class="tier feature">
+        <span class="serif">Executive</span>
+        <p class="for">Founders running a growing business</p>
+        <ul><li>Full-time EP</li><li>Founder check-ins</li><li>Live results view</li><li>Weekly planning</li></ul>
+        <p class="price"><span class="tbd">$X</span> <span class="small">/ month</span></p>
+      </div>
+      <div class="tier">
+        <span class="serif">Inner Circle</span>
+        <p class="for">Teams with several decision-makers</p>
+        <ul><li>Full-time EP + specialist hours</li><li>Priority response</li><li>Quarterly review</li></ul>
+        <p class="price"><span class="tbd">$X</span> <span class="small">/ month</span></p>
+      </div>
+    </div>
+    <div class="terms">
+      <span>Onboarding fee <span class="tbd">$X</span>, kickoff included</span>
+      <span>Billing starts when an EP is assigned</span>
+      <span>90-day minimum, then monthly</span>
+      <span>Fees non-refundable</span>
+      <span>Same tiers on all three brands</span>
+    </div>
+  </div>
+</section>
+
+<!-- 14 after day 90 -->
+<section class="slide dark">
+  <div class="label"><b>15 — After day 90</b><span>Two ways to continue</span></div>
+  <div class="inner">
+    <div class="grid g2">
+      <div class="cell">
+        <span class="kicker">Standard</span>
+        <h3>We step back.</h3>
+        <ul class="plain small">
+          <li>EP works with the client directly</li>
+          <li>One 20-min health check a quarter</li>
+          <li>Major issues only</li>
+          <li>New search at our standard fee</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <span class="kicker">Retainer · <span class="tbd">$X</span></span>
+        <h3>Full support.</h3>
+        <ul class="plain small">
+          <li>Monthly strategy call, weekly check-in</li>
+          <li>Same-day answers, ongoing QA</li>
+          <li>Up to 3 re-sourcings a year</li>
+        </ul>
+      </div>
+    </div>
+    <hr>
+    <div class="grid g2 small">
+      <div><span class="kicker">We step in for</span><p>EP unreachable 2+ days · breaches · resignations · costly mistakes · billing disputes</p></div>
+      <div><span class="kicker">Escalation</span><p>EP first · one channel · reply in 1 day, fix plan in 3 · 2 per quarter included</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 15 hiring -->
+<section class="slide">
+  <div class="label"><b>16 — How we hire</b><span>Only for a real seat</span></div>
+  <div class="inner split">
+    <div>
+      <h2>Skills. Values. <em>Potential.</em></h2>
+      <p class="lede">No paid bench. Every search grows our pool. We pass on people who think they've arrived.</p>
+    </div>
+    <table class="pairs">
+      <tr><th>Roles as we grow</th><th>What they do</th></tr>
+      <tr><td>Executive Partner</td><td>Owns the client, plans ahead, runs it</td></tr>
+      <tr><td>Specialist</td><td>Niche tasks the EP hands off</td></tr>
+      <tr><td>Quality &amp; ops lead</td><td>Checks work, sharpens playbooks, covers</td></tr>
+      <tr><td>Founders</td><td>Win clients, run outreach, protect the standard</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 16 winning clients -->
+<section class="slide tint">
+  <div class="label"><b>17 — How we win clients</b><span>Starting from proof</span></div>
+  <div class="inner">
+    <h2>Our proof is <em>our pitch.</em></h2>
+    <p class="lede" style="margin-bottom:40px;max-width:46ch">We're starting out. We don't sell what we haven't built. We show the work we've already done.</p>
+    <div class="grid g3">
+      <div class="cell"><span class="num">i.</span><h3>Proof of work</h3><p class="small">Past results, the same work done before, and the people we've worked with.</p></div>
+      <div class="cell"><span class="num">ii.</span><h3>Daily on LinkedIn</h3><p class="small">Posting every day, consistently. What we're doing and what we're learning.</p></div>
+      <div class="cell"><span class="num">iii.</span><h3>Smart, and relatable</h3><p class="small">Real people with real thinking. Clients see exactly who they'd work with.</p></div>
+    </div>
+    <p class="small" style="margin-top:28px">EPs are sourced per client, once each seat is signed.</p>
+  </div>
+</section>
+
+<!-- 17 first 90 days -->
+<section class="slide">
+  <div class="label"><b>18 — The first 90 days</b><span>Scorecard updated weekly</span></div>
+  <div class="inner">
+    <h2>The numbers pick <em>the winner.</em></h2>
+    <div class="metrics">
+      <div><span class="serif">01</span>Qualified conversations</div>
+      <div><span class="serif">02</span>Close rate</div>
+      <div><span class="serif">03</span>Average retainer</div>
+      <div><span class="serif">04</span>Gross margin</div>
+      <div><span class="serif">05</span>EP hours per client</div>
+      <div><span class="serif">06</span>Clients per EP</div>
+      <div><span class="serif">07</span>Client hours saved</div>
+      <div><span class="serif">08</span>60-day retention</div>
+    </div>
+    <p class="lede" style="margin-top:32px;max-width:60ch">Day 90: all in on the best margin × close rate. Runner-up on referrals. Pause the third.</p>
+  </div>
+</section>
+
+<!-- 18 money -->
+<section class="slide tint">
+  <div class="label"><b>19 — The money</b><span>Executive tier, per client</span></div>
+  <div class="inner split">
+    <div>
+      <h2>Every EP pays for <em>themselves.</em></h2>
+      <p class="formula">Break-even <span class="frac"><span>overhead</span><span>profit per client</span></span></p>
+      <p class="small" style="margin-top:16px">Test budget: <span class="tbd">$X</span> per brand for 90 days.</p>
+    </div>
+    <table class="ledger">
+      <tr><td>Client price</td><td class="tbd">$X</td></tr>
+      <tr><td>EP cost</td><td class="tbd">$X</td></tr>
+      <tr><td>Pod &amp; QA share</td><td class="tbd">$X</td></tr>
+      <tr><td>Tools &amp; AI</td><td class="tbd">$X</td></tr>
+      <tr class="total"><td>Gross profit</td><td class="tbd">$X</td></tr>
+      <tr><td>Gross margin</td><td class="tbd">X%</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- P1 rhode pricing -->
+<section class="slide dark">
+  <div class="label"><b>20 — Pricing strategy</b><span>The Rhode of VA services</span></div>
+  <div class="inner split">
+    <div>
+      <h2>Small, sharp, <em>wanted.</em></h2>
+      <p class="lede">Rhode never discounts. It launches few things, sells out, and lets the waitlist do the marketing. So do we.</p>
+    </div>
+    <div class="grid g2">
+      <div class="cell"><span class="num">i.</span><h3>Few offers</h3><p class="small">Three tiers. Nothing hidden, nothing custom-cheap.</p></div>
+      <div class="cell"><span class="num">ii.</span><h3>Public prices</h3><p class="small">Trust starts there. No "contact us for a quote."</p></div>
+      <div class="cell"><span class="num">iii.</span><h3>Limited seats</h3><p class="small">A set number of new clients a quarter. Then a waitlist.</p></div>
+      <div class="cell"><span class="num">iv.</span><h3>By application</h3><p class="small">A short intro call. We choose, too.</p></div>
+      <div class="cell"><span class="num">v.</span><h3>Never discount</h3><p class="small">Smaller budget? Smaller scope. Never a lower rate.</p></div>
+      <div class="cell"><span class="num">vi.</span><h3>Retainer first</h3><p class="small">Monthly, 90-day minimum. No hourly packs.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- P2 comps -->
+<section class="slide" id="comps">
+  <div class="label"><b>21 — Market comps</b><span>To be added</span></div>
+  <div class="inner">
+    <h2>Where the market <em>sits.</em></h2>
+    <p class="lede">Competitor pricing research: to be added.</p>
+  </div>
+</section>
+
+<!-- P3 model A -->
+<section class="slide tint" id="model-a">
+  <div class="label"><b>22 — Pricing model A</b><span>Their budget, our cut</span></div>
+  <div class="inner split">
+    <div>
+      <span class="kicker">Model A</span>
+      <h2>Their budget. <em>Our cut.</em></h2>
+      <p class="lede">For clients who already know what they spend on support. We build the seat around it.</p>
+    </div>
+    <div>
+      <div class="timeline" style="grid-template-columns:repeat(3,1fr)">
+        <div class="step"><span class="serif">They set it</span><p>The client names a monthly budget, above our floor.</p></div>
+        <div class="step"><span class="serif">We fit it</span><p>We source the best EP and scope that budget can hold.</p></div>
+        <div class="step"><span class="serif">We keep a cut</span><p>A fixed share for sourcing, QA and the guarantee.</p></div>
+      </div>
+      <hr>
+      <table class="ledger" id="model-a-split">
+        <tr><td>Our cut</td><td class="tbd">TBD</td></tr>
+        <tr><td>To the EP</td><td class="tbd">TBD</td></tr>
+        <tr class="total"><td>Budget floor</td><td class="tbd">TBD</td></tr>
+      </table>
+      <div class="grid g2 small" style="margin-top:24px">
+        <div><span class="kicker">Works when</span><p>The client has a set budget and moves fast.</p></div>
+        <div><span class="kicker">Watch for</span><p>Budget shoppers. The floor protects the standard.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- P4 model B -->
+<section class="slide" id="model-b">
+  <div class="label"><b>23 — Pricing model B</b><span>Our price, pitched</span></div>
+  <div class="inner">
+    <span class="kicker">Model B</span>
+    <h2>Our price. <em>Pitched.</em></h2>
+    <p class="lede">Retainer tiers: to be set with the comps.</p>
+  </div>
+</section>
+
+<!-- P5 pillars -->
+<section class="slide dark" id="pillars">
+  <div class="label"><b>24 — The three pillars</b><span>One main brand · three sub-brands</span></div>
+  <div class="inner">
+    <h2>One house. <em>Three doors.</em></h2>
+    <div class="engine" style="text-align:left">
+      <span class="kicker" style="color:var(--muted)">Main brand</span>
+      <span class="serif">with[Name]</span>
+      <div class="grid g4 small" style="margin-top:14px;color:var(--ink)">
+        <span>Main website</span><span>Instagram · creator account</span><span>Facebook · creator page</span><span>TikTok · LinkedIn</span>
+      </div>
+    </div>
+    <div class="wires"><span></span><span></span><span></span></div>
+    <div class="arch">
+      <div class="front" style="text-align:left"><span class="kicker">For real estate</span><span class="serif">[name]RE</span><p class="small" style="margin-top:10px">Own sub-site: re.[name].com<br>Own LinkedIn page</p></div>
+      <div class="front" style="text-align:left"><span class="kicker">For social media</span><span class="serif">[name]SMM</span><p class="small" style="margin-top:10px">Own sub-site: smm.[name].com<br>Own LinkedIn page</p></div>
+      <div class="front" style="text-align:left"><span class="kicker">For affiliates</span><span class="serif">[name]Affiliates</span><p class="small" style="margin-top:10px">Own sub-site: affiliates.[name].com<br>Own LinkedIn page</p></div>
+    </div>
+    <p class="small" style="margin-top:24px">Main brand builds trust. Each sub-brand speaks to one niche. LinkedIn sub-pages if possible.</p>
+  </div>
+</section>
+
+<!-- next steps -->
+<section class="slide dark">
+  <div class="label"><b>25 — Next steps</b><span>What, and by when</span></div>
+  <div class="inner">
+    <h2>Now, <em>we build.</em></h2>
+    <table class="pairs">
+      <tr><th style="width:8%">#</th><th style="width:62%">Step</th><th style="width:30%">Due</th></tr>
+      <tr><td>01</td><td>Optimize our LinkedIn profiles</td><td class="tbd">date</td></tr>
+      <tr><td>02</td><td>Gather proof of work: results, stories, testimonials, arranged into proposals</td><td class="tbd">date</td></tr>
+      <tr><td>03</td><td>Discuss and decide pricing: Model A, B or both</td><td class="tbd">date</td></tr>
+      <tr><td>04</td><td>Decide the name and branding</td><td class="tbd">date</td></tr>
+      <tr><td>05</td><td>Set goals and a deadline for every deliverable</td><td class="tbd">date</td></tr>
+      <tr><td>06</td><td>Assign owners: who does what to win clients</td><td class="tbd">date</td></tr>
+    </table>
+    <p class="small" style="margin-top:20px">Then: SOPs and playbooks · landing pages · client contract · results view · 90-day start date.</p>
+  </div>
+</section>
+
+<!-- who does what -->
+<section class="slide">
+  <div class="label"><b>26 — Who does what</b><span>One owner per task</span></div>
+  <div class="inner">
+    <h2>Every task has <em>a name.</em></h2>
+    <div class="grid g3">
+      <div class="brand-col owners">
+        <span class="kicker">Get seen</span>
+        <dl>
+          <dt>Outreach</dt><dd>Owner: name</dd>
+          <dt>LinkedIn and content</dt><dd>Owner: name</dd>
+          <dt>Partnerships and referrals</dt><dd>Owner: name</dd>
+        </dl>
+      </div>
+      <div class="brand-col owners">
+        <span class="kicker">Win the client</span>
+        <dl>
+          <dt>Pitching and discovery calls</dt><dd>Owner: name</dd>
+          <dt>Proposals and planning</dt><dd>Owner: name</dd>
+          <dt>Negotiation and contracts</dt><dd>Owner: name</dd>
+        </dl>
+      </div>
+      <div class="brand-col owners">
+        <span class="kicker">Deliver</span>
+        <dl>
+          <dt>EP sourcing and hiring</dt><dd>Owner: name</dd>
+          <dt>EP training</dt><dd>Owner: name</dd>
+          <dt>QA and escalations</dt><dd>Owner: name</dd>
+        </dl>
+      </div>
+    </div>
+    <p class="small" style="margin-top:28px">Per the brief: two founders win clients and own the relationship; three run outreach and messaging.</p>
+  </div>
+</section>
+
+<!-- balance -->
+<section class="slide green">
+  <div class="label"><b>27 — Protect the day job</b><span>We all work full-time</span></div>
+  <div class="inner split">
+    <div>
+      <h2>Build it <em>without breaking us.</em></h2>
+      <p class="lede">Our own work comes first. If something slips, we move the date, not our standards.</p>
+    </div>
+    <div class="grid g2">
+      <div class="cell"><span class="kicker">Hours cap</span><h3><span class="tbd">X</span> hrs / week each</h3><p class="small">Agreed upfront. No one carries more quietly.</p></div>
+      <div class="cell"><span class="kicker">One sync</span><h3>30 min / week</h3><p class="small">Everything else is async, in one shared tracker.</p></div>
+      <div class="cell"><span class="kicker">EP training</span><h3>Record once</h3><p class="small">One live onboarding per EP, then a monthly group session. Playbooks do the rest.</p></div>
+      <div class="cell"><span class="kicker">Client load</span><h3>Seats we can serve</h3><p class="small">We cap new clients a quarter to what our hours can carry.</p></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const counter = document.getElementById('counter');
+  const bar = document.getElementById('progress');
+  const pad = n => String(n).padStart(2, '0');
+  let current = 0;
+
+  const show = i => {
+    current = i;
+    counter.textContent = pad(i + 1) + ' / ' + pad(slides.length);
+    bar.style.width = ((i + 1) / slides.length * 100) + '%';
+  };
+
+  const track = () => {
+    const mid = window.innerHeight / 2;
+    const i = slides.findIndex(s => s.getBoundingClientRect().bottom > mid);
+    show(i === -1 ? slides.length - 1 : i);
+  };
+  window.addEventListener('scroll', track, { passive: true });
+  window.addEventListener('resize', track);
+
+  const go = i => slides[Math.max(0, Math.min(slides.length - 1, i))].scrollIntoView({ behavior: 'smooth' });
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(current + 1); }
+    if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); go(current - 1); }
+    if (e.key === 'Home') go(0);
+    if (e.key === 'End') go(slides.length - 1);
+  });
+  track();
+</script>
+</body>
+</html>
